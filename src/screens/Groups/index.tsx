@@ -1,7 +1,10 @@
-import { View } from 'react-native'
+import { Container, } from './styles'
 
 export function Groups() {
     return (
-        <View>ghdsauhduhas</View>
+        <Container>
+
+
+        </Container>
     )
 }
