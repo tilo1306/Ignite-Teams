@@ -7,8 +7,10 @@ import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
 import { PlayerCard } from "@components/PlayerCard";
 import { Filter } from "@components/Filter";
+import { ListEmpty } from "@components/ListEmpty";
 
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
+import { Button } from "@components/Button";
 
 export function Players() {
   const [team, setTeam] = useState("Time A");
@@ -47,7 +49,16 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard name={item} onRemover={() => {}} />
         )}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não há pessoas nesse time" />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          player.length === 0 && { flex: 1 },
+        ]}
       />
+      <Button title="Remover Turme" type="SEGUNDARY" />
     </Container>
   );
 }
