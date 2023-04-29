@@ -1,16 +1,17 @@
 import { useState } from "react";
-
-import { groupsCreate } from "@storage/group/groupsCreate";
+import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { AppError } from "@utils/AppError";
+
+import { groupsCreate } from "@storage/group/groupsCreate";
+
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 
 import { Container, Content, Icon } from "./styles";
-import { Alert } from "react-native";
 
 export function NewGroup() {
   const [group, setGroup] = useState("");
