@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Alert, FlatList, TextInput } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { AppError } from "@utils/AppError";
 
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { playersGetByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
 import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
+import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+import { groupRemoveByName } from "@storage/group/groupRemoverByName";
 
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
@@ -18,7 +20,6 @@ import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
 
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
-import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
 
 type RouteParams = {
   group: string;
@@ -31,6 +32,8 @@ export function Players() {
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
+
+  const { navigate } = useNavigation();
 
   const newPlayerNameInputRef = useRef<TextInput>(null);
 
@@ -85,6 +88,23 @@ export function Players() {
       console.log(error);
       Alert.alert("Remover pessoa", "Não foi possivel remover essa pessoas");
     }
+  }
+
+  async function groupRemove() {
+    try {
+      await groupRemoveByName(group);
+      navigate("groups");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Remover grupo", "Não foi possivel remover o grupo!");
+    }
+  }
+
+  async function handleGroupRemove() {
+    Alert.alert("Remover", "Deseja remover o grupo?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => groupRemove() },
+    ]);
   }
 
   useEffect(() => {
@@ -142,9 +162,9 @@ export function Players() {
         ]}
       />
       <Button
-        title="Remover Turme"
+        title="Remover Turma"
         type="SEGUNDARY"
-        onPress={handleAddPlayer}
+        onPress={handleGroupRemove}
       />
     </Container>
   );
