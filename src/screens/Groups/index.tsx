@@ -1,14 +1,17 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-native/no-inline-styles */
 import { useState, useCallback } from "react";
 import { Alert, FlatList } from "react-native";
+
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import { groupsGetAll } from "@storage/group/groupsGetAll";
 
+import { GroupCard } from "@components/GroupCard";
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
-import { GroupCard } from "@components/GroupCard";
-import { Button } from "@components/Button";
 import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 import { Container } from "./styles";
 import { Loading } from "@components/Loading";
@@ -17,10 +20,10 @@ export function Groups() {
   const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<string[]>([]);
 
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
 
-  async function handleNewGroup() {
-    navigate("new");
+  function handleNewGroup() {
+    navigation.navigate("new");
   }
 
   async function fetchGroups() {
@@ -29,15 +32,15 @@ export function Groups() {
       const data = await groupsGetAll();
       setGroups(data);
     } catch (error) {
+      Alert.alert("Turmas", "Não foi possível carregar as turmas");
       console.log(error);
-      Alert.alert("Turmas", "Não foi possivel carregar os times");
     } finally {
       setIsLoading(false);
     }
   }
 
   function handleOpenGroup(group: string) {
-    navigate("players", { group });
+    navigation.navigate("players", { group });
   }
 
   useFocusEffect(
@@ -49,7 +52,7 @@ export function Groups() {
   return (
     <Container>
       <Header />
-      <HighLight title="Tumars" subTitle="Jogue com a sua turma" />
+      <HighLight title="Turmas" subtitle="jogue com sua turma" />
       {isLoading ? (
         <Loading />
       ) : (
@@ -61,11 +64,11 @@ export function Groups() {
           )}
           contentContainerStyle={groups.length === 0 && { flex: 1 }}
           ListEmptyComponent={() => (
-            <ListEmpty message=" Que tal cadastrar a primeira turma?" />
+            <ListEmpty message="Que tal cadastrar a primeira turma?" />
           )}
-          showsVerticalScrollIndicator={false}
         />
       )}
+
       <Button title="Criar nova turma" onPress={handleNewGroup} />
     </Container>
   );

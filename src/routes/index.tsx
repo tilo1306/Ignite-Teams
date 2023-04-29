@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import { View } from "react-native";
 import { useTheme } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";

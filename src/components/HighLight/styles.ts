@@ -6,19 +6,19 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
+  text-align: center;
   ${({ theme }) => css`
-    text-align: center;
-    font-size:  theme.FONT_SIZE.XL}px;
-    font-family:  theme.FONT_FAMILY.BOLD};
-    color:  theme.COLORS.WHITE};
-  `}
+    font-size: ${theme.FONT_SIZE.XL}px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    color: ${theme.COLORS.WHITE};
+  `};
 `;
 
-export const SubTitle = styled.Text`
+export const Subtitle = styled.Text`
+  text-align: center;
   ${({ theme }) => css`
-    text-align: center;
-    font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
-    font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-    color: ${({ theme }) => theme.COLORS.GRAY_300};
-  `}
+    font-size: ${theme.FONT_SIZE.MD}px;
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    color: ${theme.COLORS.GRAY_300};
+  `};
 `;
