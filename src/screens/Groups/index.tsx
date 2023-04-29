@@ -13,10 +13,10 @@ import { Container } from "./styles";
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([]);
 
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
 
   function handleNewGroup() {
-    navigation.navigate("new");
+    navigate("new");
   }
   return (
     <Container>
